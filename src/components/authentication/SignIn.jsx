@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import './sign-in.scss';
+import './index.scss';
 import FormInput from '../form-input/FormInput';
 import CustomButton from '../custom-button/CustomButton';
 import {

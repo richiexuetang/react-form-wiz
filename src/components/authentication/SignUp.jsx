@@ -8,7 +8,7 @@ import {
   createUserDocumentFromAuth,
 } from '../../firebase/firebase.utils';
 
-import './sign-up.scss';
+import './index.scss';
 
 class SignUp extends React.Component {
   constructor() {

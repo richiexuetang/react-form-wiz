@@ -4,7 +4,8 @@ import { UserContext } from './context/user.context';
 import './App.scss';
 import Header from './components/header/Header';
 import HomePage from './components/homepage/HomePage';
-import Authentication from './pages/authentication/Authentication';
+import Authentication from './features/authentication/Authentication';
+import ShopPage from './features/shop/Shop';
 
 const App = () => {
   const { currentUser } = useContext(UserContext);
@@ -13,6 +14,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Header />}>
           <Route index element={<HomePage />} />
+          <Route path='shop/*' element={<ShopPage />} />
           <Route
             path='auth'
             element={
