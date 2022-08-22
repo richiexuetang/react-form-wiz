@@ -1,11 +1,16 @@
 {
-  "name": "e-commerce",
+  "name": "MerchandiseY",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^28.1.7",
+    "@types/node": "^18.7.9",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
     "firebase": "^9.9.3",
     "node-sass": "^7.0.1",
     "react": "^18.2.0",
@@ -18,7 +23,8 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "reselect": "^4.1.6",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "typescript": "^4.7.4"
   },
   "scripts": {
     "start": "react-scripts start",

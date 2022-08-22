@@ -1,72 +1,80 @@
-import React from 'react';
-
+import React, { useContext, useState } from 'react';
 import './sign-in.scss';
+import FormInput from '../form-input/FormInput';
+import CustomButton from '../custom-button/CustomButton';
+import {
+  signInAuthUserWithEmailAndPassword,
+  signInWithGooglePopup,
+} from '../../firebase/firebase.utils';
+import { UserContext } from '../../context/user.context';
 
-import FormInput from '../form-input/form-input';
-import CustomButton from '../custom-button/custom-button';
+const SignIn = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
+  const { setCurrentUser } = useContext(UserContext);
 
-class SignIn extends React.Component {
-    constructor(props) {
-        super(props);
+  const signInWithGoogle = async () => {
+    const { user } = await signInWithGooglePopup();
+    setCurrentUser(user);
+  };
 
-        this.state = {
-            email: '',
-            password: ''
-        };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { user } = await signInAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      setEmail('');
+      setPassword('');
+      setCurrentUser(user);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    handleSubmit = async event => {
-        event.preventDefault();
+  const handleChange = (event) => {
+    const { value, name } = event.target;
 
-        const { email, password} = this.state;
+    this.setState({ [name]: value });
+  };
 
-        try {
-            await auth.signInWithEmailAndPassword(email, password);
-            this.setState({email: '', password: ''});
-        } catch (error) {
-            console.log(error);
-        }
-    }
+  return (
+    <div className='sign-in'>
+      <h2>I already have an account</h2>
+      <span>Sign in with your email and password</span>
 
-    handleChange = event => {
-        const {value, name} = event.target;
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          name='email'
+          type='email'
+          handleChange={handleChange}
+          value={email}
+          label='Email'
+          required
+        />
 
-        this.setState({[name]: value});
-    }
+        <FormInput
+          name='password'
+          type='password'
+          value={password}
+          handleChange={handleChange}
+          label='Password'
+          required
+        />
 
-    render() {
-        return(
-            <div className='sign-in'>
-                <h2>I already have an account</h2>
-                <span>Sign in with your email and password</span>
-
-                <form onSubmit={this.handleSubmit}>
-                    <FormInput 
-                        name='email' 
-                        type='email' 
-                        handleChange={this.handleChange} 
-                        value={this.state.email}
-                        label='Email'  
-                        required/>
-
-                    <FormInput 
-                        name='password' 
-                        type='password' 
-                        value={this.state.password}
-                        handleChange={this.handleChange} 
-                        label='Password'  
-                        required/>
-
-                    <div className='buttons'>
-                        <CustomButton type='submit'> Sign in </CustomButton>
-                        <CustomButton onClick={signInWithGoogle} isGoogleSignIn> Sign in with Google </CustomButton>
-                    </div> 
-                </form>
-            </div>
-        );
-    }
-}
+        <div className='buttons'>
+          <CustomButton type='submit'> Sign in </CustomButton>
+          <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+            {' '}
+            Sign in with Google{' '}
+          </CustomButton>
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default SignIn;

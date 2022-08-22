@@ -21,6 +21,7 @@ const config = {
   measurementId: 'G-4E272BR26Q',
 };
 
+// eslint-disable-next-line no-unused-vars
 const firebaseApp = initializeApp(config);
 
 const googleProvider = new GoogleAuthProvider();
