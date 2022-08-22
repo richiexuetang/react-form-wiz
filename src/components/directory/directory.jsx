@@ -9,17 +9,16 @@ import MenuItem from '../../pages/menu-item/menu-item';
 import { createStructuredSelector } from 'reselect';
 
 const Directory = ({ sections }) => (
-    <div className='directory-menu'>
-        {
-            sections.map(({id, ...otherSectionProps }) => (
-                <MenuItem key={id} {...otherSectionProps}/>
-            ))
-        }
-    </div>
+  <div className='directory-menu'>
+    {sections.map(({ id, ...otherSectionProps }) => (
+      <MenuItem key={id} {...otherSectionProps} />
+    ))}
+  </div>
 );
 
-const mapStateToProps = createStructuredSelector({ 
-    sections: selectDirectorySections
- });
+const mapStateToProps = createStructuredSelector({
+  sections: selectDirectorySections,
+});
 
-export default connect(mapStateToProps)(Directory);
+//export default connect(mapStateToProps)(Directory);
+export default Directory;

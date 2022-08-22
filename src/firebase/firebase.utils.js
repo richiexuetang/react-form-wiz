@@ -1,82 +1,81 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import {
+  getAuth,
+  signInWithRedirect,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 const config = {
-    apiKey: "AIzaSyB0ugIYhdGAtvUtPlFxYveqEvU0LXmaACY",
-    authDomain: "ecommerce-db-656b3.firebaseapp.com",
-    databaseURL: "https://ecommerce-db-656b3.firebaseio.com",
-    projectId: "ecommerce-db-656b3",
-    storageBucket: "ecommerce-db-656b3.appspot.com",
-    messagingSenderId: "1074617789877",
-    appId: "1:1074617789877:web:393358e0aba58c26373dfc",
-    measurementId: "G-4E272BR26Q"
+  apiKey: 'AIzaSyB0ugIYhdGAtvUtPlFxYveqEvU0LXmaACY',
+  authDomain: 'ecommerce-db-656b3.firebaseapp.com',
+  databaseURL: 'https://ecommerce-db-656b3.firebaseio.com',
+  projectId: 'ecommerce-db-656b3',
+  storageBucket: 'ecommerce-db-656b3.appspot.com',
+  messagingSenderId: '1074617789877',
+  appId: '1:1074617789877:web:393358e0aba58c26373dfc',
+  measurementId: 'G-4E272BR26Q',
 };
 
-firebase.initializeApp(config);
+const firebaseApp = initializeApp(config);
 
-export const createUserProfileDocument = async (userAuth, additionalData) => {
+const googleProvider = new GoogleAuthProvider();
+
+googleProvider.setCustomParameters({
+  prompt: 'select_account',
+});
+
+export const auth = getAuth();
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider);
+
+export const db = getFirestore();
+
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInformation = {}
+) => {
   if (!userAuth) return;
 
-  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const userDocRef = doc(db, 'users', userAuth.uid);
 
-  const snapShot = await userRef.get();
+  const userSnapshot = await getDoc(userDocRef);
 
-  if (!snapShot.exists) {
+  if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
+
     try {
-      await userRef.set({
+      await setDoc(userDocRef, {
         displayName,
         email,
         createdAt,
-        ...additionalData
+        ...additionalInformation,
       });
     } catch (error) {
-      console.log('error creating user', error.message);
+      console.log('error creating the user', error.message);
     }
   }
 
-  return userRef;
+  return userDocRef;
 };
 
-export const addCollectionAndDocuments = async(collectionKey, objectsToAdd) => {
-  const collectionRef = firestore.collection(collectionKey);
-  console.log(collectionRef);
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
 
-  const batch = firestore.batch();
-
-  objectsToAdd.forEach(obj => {
-    const newDocRef = collectionRef.doc();
-    batch.set(newDocRef, obj);
-  });
-
-  return await batch.commit();
+  return await createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const convertCollectionsSnapshotToMap = collections => {
-  const transformedCollection = collections.docs.map(doc => {
-    const { title, items } = doc.data();
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
 
-    return {
-      routeName: encodeURI(title.toLowerCase()),
-      id: doc.id,
-      title,
-      items
-    };
-  });
-
-  return transformedCollection.reduce((accumulator, collection) => {
-    accumulator[collection.title.toLowerCase()] = collection;
-    return accumulator;
-  }, {});
+  return await signInWithEmailAndPassword(auth, email, password);
 };
 
-export const auth = firebase.auth();
-export const firestore = firebase.firestore();
-
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
-
-export default firebase;
+export const signOutUser = async () => await signOut(auth);
