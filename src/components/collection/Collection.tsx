@@ -1,7 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
 import CollectionItem from './CollectionItem';
 import Spinner from '../../components/with-spinner/WithSpinner';
 import { CollectionContainer, CollectionTitle } from './index.styles';
@@ -25,7 +24,8 @@ const Collection = () => {
   const isLoading = useSelector(
     (state: RootState) => state.collection.isFetchingCategory
   );
-
+  log('category route param in Collection: ', category);
+  log('categories in Collection is ', categories);
   const [categoryMap, setCategoryMap] = useState<CategoryMap | any>();
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const Collection = () => {
         return acc;
       }, {} as CategoryMap);
 
-    //if (categories) {
+    log('getCategoriesMap', getCategoriesMap(categories));
     setCategoryMap(getCategoriesMap(categories));
     //}
   }, [categories]);

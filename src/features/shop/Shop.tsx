@@ -1,21 +1,18 @@
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { RootState } from '../../app/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import './shop.styles.scss';
-import { getCategoriesAndDocuments } from '../../firebase/firebase.utils';
 import { Category } from '../../@types/global';
-import {
-  fetchCategoriesSuccess,
-  setFetchingCategories,
-} from '../collection/collection.slice';
+import { useAppDispatch } from '../../app/store';
+import { fetchCategoriesInitial } from '../collection/collection.slice';
 import CollectionOverview from '../../components/collection/CollectionOverview';
 import Collection from '../../components/collection/Collection';
 import { loadedLog, log } from '../../utils/log';
 
 const ShopPage = () => {
   loadedLog('ShopPage is loaded');
-  const dispatch = useDispatch();
+  const appDispatch = useAppDispatch();
 
   const isFetchingCategories: boolean = useSelector(
     (state: RootState) => state.collection.isFetchingCategory
@@ -25,17 +22,8 @@ const ShopPage = () => {
   );
 
   useEffect(() => {
-    const fetchCategoriesAndDocuments = async () => {
-      const categoriesAndDocuments: Category[] =
-        await getCategoriesAndDocuments();
-
-      dispatch(fetchCategoriesSuccess(categoriesAndDocuments));
-      dispatch(setFetchingCategories(true));
-      console.log('categoriesAndDocuments in Shop', categoriesAndDocuments);
-    };
-
-    fetchCategoriesAndDocuments().catch(console.error);
-  }, [dispatch, isFetchingCategories, categories]);
+    appDispatch(fetchCategoriesInitial());
+  }, [appDispatch]);
 
   log(
     'isFetchingCategories in Shop',
