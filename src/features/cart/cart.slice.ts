@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CartItem, CategoryItem } from '../../@types/global';
 
 export interface CartState {
   isCartOpen: boolean;

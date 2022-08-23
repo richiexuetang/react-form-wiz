@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import CollectionItem from './CollectionItem';
 import Spinner from '../../components/with-spinner/WithSpinner';
 import { CollectionContainer, CollectionTitle } from './index.styles';
-import { Category } from '../../@types/global';
 import { RootState } from '../../app/store';
 import { loadedLog } from '../../utils/log';
 import { setCategoryItems } from '../../features/collection/collection.slice';

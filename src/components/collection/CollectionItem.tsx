@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CartItem, CategoryItem } from '../../@types/global';
 import { RootState } from '../../app/store';
 import { addCartItem } from '../../features/cart/cart.slice';
 import { addItem } from '../../redux/cart/cart.actions';
-import CustomButton from '../custom-button/CustomButton';
+import CustomButton from '../button/custom-button/CustomButton';
 import { CollectionItemContainer, Footer, Name, Price } from './index.styles';
 
 interface CollectionItemProps {

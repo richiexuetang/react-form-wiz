@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import './index.scss';
 import { RootState } from '../../app/store';
 import CollectionPreview from './CollectionPreview';
-import { Category, CategoryMap } from '../../@types/global';
 import WithSpinner from '../with-spinner/WithSpinner';
 import { setFetchingCategories } from '../../features/collection/collection.slice';
 import { loadedLog, log } from '../../utils/log';

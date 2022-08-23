@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import { RootState } from '../../app/store';
 import { useSelector } from 'react-redux';
 import './shop.styles.scss';
-import { Category } from '../../@types/global';
 import { useAppDispatch } from '../../app/store';
 import { fetchCategoriesInitial } from '../collection/collection.slice';
 import CollectionOverview from '../../components/collection/CollectionOverview';

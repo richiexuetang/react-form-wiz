@@ -1,12 +1,12 @@
 import React from 'react';
 
 import FormInput from '../form-input/FormInput';
-import CustomButton from '../custom-button/CustomButton';
+import CustomButton from '../button/custom-button/CustomButton';
 
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
-} from '../../firebase/firebase.utils';
+} from '../../utils/firebase.utils';
 
 import './index.scss';
 

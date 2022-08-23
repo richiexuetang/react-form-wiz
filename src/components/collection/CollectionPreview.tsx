@@ -1,7 +1,6 @@
 import React from 'react';
 import { CollectionPreviewContainer, Title, Preview } from './index.styles';
 import CollectionItem from './CollectionItem';
-import { CategoryItem } from '../../@types/global';
 
 interface CollectionPreviewProps {
   title: string;

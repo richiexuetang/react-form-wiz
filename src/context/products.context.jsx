@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 
-import { addCollectionAndDocuments } from '../firebase/firebase.utils';
+import { addCollectionAndDocuments } from '../utils/firebase.utils';
 
 import SHOP_DATA from './shop-data.js';
 

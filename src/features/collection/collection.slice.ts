@@ -1,7 +1,5 @@
-import { CategoryItem, CategoryMap } from './../../@types/global.d';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Category } from '../../@types/global';
-import { getCategoriesAndDocuments } from '../../firebase/firebase.utils';
+import { getCategoriesAndDocuments } from '../../utils/firebase.utils';
 
 export const fetchCategoriesInitial = createAsyncThunk(
   'category/fetchCategoriesInitial',

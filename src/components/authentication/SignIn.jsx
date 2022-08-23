@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
 import './index.scss';
 import FormInput from '../form-input/FormInput';
-import CustomButton from '../custom-button/CustomButton';
+import CustomButton from '../button/custom-button/CustomButton';
 import {
   signInAuthUserWithEmailAndPassword,
   signInWithGooglePopup,
-} from '../../firebase/firebase.utils';
+} from '../../utils/firebase.utils';
 import { UserContext } from '../../context/user.context';
 
 const SignIn = () => {
