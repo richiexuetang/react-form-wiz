@@ -43,7 +43,7 @@ export const collectionSlice = createSlice({
     fetchCategoriesError(state, { payload: error }: PayloadAction<Error>) {
       state.error = error;
     },
-    getCategoryMap(
+    setCategoryItems(
       state,
       { payload }: PayloadAction<{ categories: Category[]; category: string }>
     ) {
@@ -74,6 +74,7 @@ export const {
   setFetchingCategories,
   fetchCategoriesSuccess,
   fetchCategoriesError,
+  setCategoryItems,
 } = collectionSlice.actions;
 
 export default collectionSlice.reducer;
