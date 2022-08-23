@@ -7,7 +7,7 @@ import { Outlet, Link } from 'react-router-dom';
 // import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { signOutUser } from '../../firebase/firebase.utils';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-// import CartIcon from '../cart-icon/CartIcon';
+import CartIcon from '../cart/cart-icon/CartIcon';
 // import CartDropdown from '../cart-dropdown/CartDropdown';
 import { UserContext } from '../../context/user.context';
 
@@ -41,7 +41,7 @@ const Header = () => {
               SIGN IN
             </Link>
           )}
-          {/* <CartIcon /> */}
+          <CartIcon />
         </div>
         {/* {hidden ? null : <CartDropdown />} */}
       </div>

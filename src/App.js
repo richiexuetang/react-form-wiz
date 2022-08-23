@@ -1,16 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, Suspense, lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { UserContext } from './context/user.context';
 import './App.scss';
-import Header from './components/header/Header';
-import HomePage from './components/homepage/HomePage';
-import Authentication from './features/authentication/Authentication';
-import ShopPage from './features/shop/Shop';
+import Spinner from './components/with-spinner/WithSpinner';
+import { loadedLog } from './utils/log';
+
+const Header = lazy(() => import('./components/header/Header'));
+const HomePage = lazy(() => import('./components/homepage/HomePage'));
+const Authentication = lazy(() =>
+  import('./features/authentication/Authentication')
+);
+const ShopPage = lazy(() => import('./features/shop/Shop'));
 
 const App = () => {
+  loadedLog('App is loaded');
   const { currentUser } = useContext(UserContext);
   return (
-    <div>
+    <Suspense fallback={<Spinner />}>
       <Routes>
         <Route path='/' element={<Header />}>
           <Route index element={<HomePage />} />
@@ -23,7 +29,7 @@ const App = () => {
           />
         </Route>
       </Routes>
-    </div>
+    </Suspense>
   );
 };
 export default App;

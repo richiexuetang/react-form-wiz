@@ -1,75 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import CollectionsOverview from '../../components/collection/CollectionOverview';
-import CollectionPage from '../collection/CollectionPage';
-
-// import {
-//   firestore,
-//   convertCollectionsSnapshotToMap,
-// } from '../../firebase/firebase.utils';
-import { updateCollections } from '../../redux/shop/shop.actions';
-
-import WithSpinner from '../../components/with-spinner/WithSpinner';
-
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
-const CollectionPageWithSpinner = WithSpinner(CollectionPage);
+import { RootState } from '../../app/store';
+import { useDispatch, useSelector } from 'react-redux';
+import './shop.styles.scss';
+import { getCategoriesAndDocuments } from '../../firebase/firebase.utils';
+import { Category } from '../../@types/global';
+import {
+  fetchCategoriesSuccess,
+  setFetchingCategories,
+} from '../collection/collection.slice';
+import CollectionOverview from '../../components/collection/CollectionOverview';
+import Collection from '../../components/collection/Collection';
+import { loadedLog, log } from '../../utils/log';
 
 const ShopPage = () => {
-  const [loading, setLoading] = useState(true);
+  loadedLog('ShopPage is loaded');
+  const dispatch = useDispatch();
+
+  const isFetchingCategories: boolean = useSelector(
+    (state: RootState) => state.collection.isFetchingCategory
+  );
+  const categories: Category[] = useSelector(
+    (state: RootState) => state.collection.categories
+  );
+
+  useEffect(() => {
+    const fetchCategoriesAndDocuments = async () => {
+      const categoriesAndDocuments: Category[] =
+        await getCategoriesAndDocuments();
+
+      dispatch(fetchCategoriesSuccess(categoriesAndDocuments));
+      dispatch(setFetchingCategories(true));
+      console.log('categoriesAndDocuments in Shop', categoriesAndDocuments);
+    };
+
+    fetchCategoriesAndDocuments().catch(console.error);
+  }, [dispatch, isFetchingCategories, categories]);
+
+  log(
+    'isFetchingCategories in Shop',
+    isFetchingCategories,
+    'categories in Shop',
+    categories
+  );
+
   return (
-    <div className='shop-page'>
-      <Routes>
-        <Route
-          index
-          element={<CollectionsOverviewWithSpinner isLoading={loading} />}
-        />
-        {/* <Route
-          path=':category'
-          element={<CollectionPageWithSpinner isLoading={loading} />}
-        /> */}
-      </Routes>
-    </div>
+    <Routes>
+      <Route index element={<CollectionOverview />} />
+      <Route path=':category' element={<Collection />} />
+    </Routes>
   );
 };
-
-// class ShopPage extends React.Component {
-//   state = {
-//     loading: true,
-//   };
-
-//   unsubscribeFromSnapshot = null;
-
-//   componentDidMount() {
-//     const { updateCollections } = this.props;
-//     const collectionRef = firestore.collection('collections');
-
-//     collectionRef.get().then((snapshot) => {
-//       const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-//       updateCollections(collectionsMap);
-//       this.setState({ loading: false });
-//     });
-//   }
-//   render() {
-//     const { match } = this.props;
-//     const { loading } = this.state;
-//     return (
-//       <div className='shop-page'>
-//         <Route
-//           exact
-//           path={`${match.path}`}
-//           render={(props) => (
-//             <CollectionsOverviewWithSpinner isLoading={loading} {...props} />
-//           )}
-//         />
-//         <Route
-//           path={`${match.path}/:collectionId`}
-//           render={(props) => (
-//             <CollectionPageWithSpinner isLoading={loading} {...props} />
-//           )}
-//         />
-//       </div>
-//     );
-//   }
-// }
 
 export default ShopPage;
