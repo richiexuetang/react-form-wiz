@@ -17,5 +17,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/@types/global.d.ts"]
+  "include": ["src", "src/@types/*.d.ts", "shop-data.js"]
 }

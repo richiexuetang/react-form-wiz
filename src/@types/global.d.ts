@@ -1,6 +1,14 @@
 export {};
 
 declare global {
+  //#region Button
+  export enum BUTTON_TYPE_CLASSES {
+    base = 'base',
+    google = 'google-sign-in',
+    inverted = 'inverted',
+  }
+  //#endregion
+
   //#region Category
   interface CategoryItem {
     id: number;
@@ -28,8 +36,23 @@ declare global {
     SET_CART_TOTAL = 'cart/SET_CART_TOTAL',
   }
 
-  interface CartItem extends CategoryItem {
+  export interface CartItem extends CategoryItem {
     quantity: number;
   }
   //#endregion
+
+  //#region User
+  interface UserData {
+    createdDate: Date;
+    displayName: string;
+    email: string;
+  }
+  //#endregion
+
+  //#region Form
+  interface FormInputFields {
+    displayName?: string;
+    email: string;
+    password: string;
+  }
 }

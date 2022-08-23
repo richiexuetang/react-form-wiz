@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import './index.scss';
 import { RootState } from '../../app/store';
 import CollectionPreview from './CollectionPreview';
 import WithSpinner from '../with-spinner/WithSpinner';
-import { setFetchingCategories } from '../../features/collection/collection.slice';
-import { loadedLog, log } from '../../utils/log';
 
 const CollectionOverview = () => {
-  loadedLog('CollectionOverview is loaded');
-  const dispatch = useDispatch();
-
   const categories: Category[] = useSelector(
     (state: RootState) => state.collection.categories
   );
-  // const isLoading = useSelector(
-  //   (state: RootState) => state.collection.isFetchingCategory
-  // );
 
   const [categoryMap, setCategoryMap] = useState<CategoryMap | any>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -32,10 +24,8 @@ const CollectionOverview = () => {
     if (isLoading && categories) {
       setCategoryMap(getCategoriesMap(categories));
       setIsLoading(false);
-      //dispatch(setFetchingCategories(true));
     }
   }, [isLoading, categories]);
-  log('categoryMap in CollectionOverview', categoryMap);
 
   return (
     <React.Fragment>

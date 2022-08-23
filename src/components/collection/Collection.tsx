@@ -5,7 +5,6 @@ import CollectionItem from './CollectionItem';
 import Spinner from '../../components/with-spinner/WithSpinner';
 import { CollectionContainer, CollectionTitle } from './index.styles';
 import { RootState } from '../../app/store';
-import { loadedLog } from '../../utils/log';
 import { setCategoryItems } from '../../features/collection/collection.slice';
 
 type CategoryRouteParams = {
@@ -13,7 +12,6 @@ type CategoryRouteParams = {
 };
 
 const Collection = () => {
-  loadedLog('-Collection is loaded!');
   const dispatch = useDispatch();
 
   const { category } = useParams<
@@ -26,7 +24,7 @@ const Collection = () => {
   const isLoading = useSelector(
     (state: RootState) => state.collection.isFetchingCategory
   );
-  const categoryItems = useSelector(
+  const categoryItems: CategoryItem[] = useSelector(
     (state: RootState) => state.collection.categoryItem
   );
 

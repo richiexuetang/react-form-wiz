@@ -58,7 +58,7 @@ export const collectionSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCategoriesInitial.pending, (state, action) => {
+      .addCase(fetchCategoriesInitial.pending, (state) => {
         state.isFetchingCategory = true;
       })
       .addCase(fetchCategoriesInitial.fulfilled, (state, action) => {

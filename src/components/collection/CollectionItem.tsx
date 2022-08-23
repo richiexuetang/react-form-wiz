@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { addCartItem } from '../../features/cart/cart.slice';
-import { addItem } from '../../redux/cart/cart.actions';
-import CustomButton from '../button/custom-button/CustomButton';
+import Button, { BUTTON_TYPE_CLASSES } from '../button/Button';
 import { CollectionItemContainer, Footer, Name, Price } from './index.styles';
 
 interface CollectionItemProps {
@@ -18,7 +17,14 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ product }) => {
     (state: RootState) => state.cart.cartItems
   );
 
-  const addProductToCart = () => {};
+  const payload = {
+    cartItems: cartItems,
+    productToAdd: { ...product, quantity: 0 },
+  };
+
+  const addProductToCart = () => {
+    dispatch(addCartItem(payload));
+  };
 
   return (
     <CollectionItemContainer>
@@ -27,7 +33,12 @@ const CollectionItem: React.FC<CollectionItemProps> = ({ product }) => {
         <Name>{name}</Name>
         <Price>{price}</Price>
       </Footer>
-      <button onClick={addProductToCart}>Add to cart</button>
+      <Button
+        buttonType={BUTTON_TYPE_CLASSES.inverted}
+        onClick={addProductToCart}
+      >
+        Add to cart
+      </Button>
     </CollectionItemContainer>
   );
 };

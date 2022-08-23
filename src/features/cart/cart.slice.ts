@@ -3,11 +3,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface CartState {
   isCartOpen: boolean;
   cartItems: CartItem[];
+  numItems: number;
+  totalPrice: number;
 }
 
 export const initialState: CartState = {
   isCartOpen: false,
   cartItems: [],
+  numItems: 0,
+  totalPrice: 0,
 };
 
 export const cartSlice = createSlice({
@@ -18,7 +22,7 @@ export const cartSlice = createSlice({
       state,
       {
         payload,
-      }: PayloadAction<{ cartItems: CartItem[]; productToAdd: CategoryItem }>
+      }: PayloadAction<{ cartItems: CartItem[]; productToAdd: CartItem }>
     ) {
       const { cartItems, productToAdd } = payload;
       const existingCartItem = cartItems.find(
@@ -34,6 +38,7 @@ export const cartSlice = createSlice({
       } else {
         state.cartItems = [...cartItems, { ...productToAdd, quantity: 1 }];
       }
+      state.numItems += 1;
     },
     removeCartItem(
       state,
@@ -41,7 +46,7 @@ export const cartSlice = createSlice({
         payload,
       }: PayloadAction<{
         cartItems: CartItem[];
-        cartItemToRemove: CategoryItem;
+        cartItemToRemove: CartItem;
       }>
     ) {
       const { cartItems, cartItemToRemove } = payload;
@@ -59,6 +64,7 @@ export const cartSlice = createSlice({
             ? { ...cartItem, quantity: cartItem.quantity - 1 }
             : cartItem
         );
+        state.numItems -= 1;
       }
     },
     clearCartItem(
@@ -67,10 +73,12 @@ export const cartSlice = createSlice({
         payload,
       }: PayloadAction<{
         cartItems: CartItem[];
-        cartItemToClear: CategoryItem;
+        cartItemToClear: CartItem;
       }>
     ) {
       const { cartItems, cartItemToClear } = payload;
+
+      state.numItems -= cartItemToClear.quantity;
 
       state.cartItems = cartItems.filter(
         (cartItem) => cartItem.id !== cartItemToClear.id
@@ -79,8 +87,14 @@ export const cartSlice = createSlice({
     setCartItems(state, { payload: cartItems }: PayloadAction<CartItem[]>) {
       state.cartItems = cartItems;
     },
-    setIsCartOpen(state, { payload: isCartOpen }: PayloadAction<boolean>) {
-      state.isCartOpen = isCartOpen;
+    setIsCartOpen(state, { payload }: PayloadAction<boolean>) {
+      state.isCartOpen = payload;
+    },
+    incrementItemsInCart(state, { payload }: PayloadAction<number>) {
+      state.numItems += payload;
+    },
+    addPriceToTotal(state, { payload }: PayloadAction<number>) {
+      state.totalPrice += payload;
     },
   },
 });

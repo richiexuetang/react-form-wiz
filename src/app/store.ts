@@ -1,14 +1,25 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import cartReducer from '../features/cart/cart.slice';
 import collectionReducer from '../features/collection/collection.slice';
+import userReducer from '../components/header/user.slice';
 import logger from 'redux-logger';
 import { useDispatch } from 'react-redux';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+const reducers = combineReducers({
+  cart: cartReducer,
+  collection: collectionReducer,
+  user: userReducer,
+});
+
+const persistConfig = {
+  key: 'root',
+  storage,
+};
 
 export const store = configureStore({
-  reducer: {
-    cart: cartReducer,
-    collection: collectionReducer,
-  },
+  reducer: persistReducer(persistConfig, reducers),
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
