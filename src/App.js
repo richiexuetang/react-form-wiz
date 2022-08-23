@@ -4,8 +4,8 @@ import './App.scss';
 import Spinner from './components/with-spinner/WithSpinner';
 import { loadedLog } from './utils/log';
 
-const Header = lazy(() => import('./components/header/Header'));
-const HomePage = lazy(() => import('./components/homepage/HomePage'));
+const Header = lazy(() => import('./features/header/Header'));
+const HomePage = lazy(() => import('./features/homepage/HomePage'));
 const Authentication = lazy(() =>
   import('./features/authentication/Authentication')
 );

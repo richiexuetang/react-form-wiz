@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
-import { addCartItem } from '../../features/cart/cart.slice';
+import { addCartItem } from '../../app/cart.slice';
 import Button, { BUTTON_TYPE_CLASSES } from '../button/Button';
 import { CollectionItemContainer, Footer, Name, Price } from './index.styles';
 

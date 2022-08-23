@@ -1,6 +1,6 @@
 import React from 'react';
-import SignIn from '../../components/authentication/SignIn';
-import SignUp from '../../components/authentication/SignUp';
+import SignIn from './sign-in-sign-up/SignIn';
+import SignUp from './sign-in-sign-up/SignUp';
 import { AuthenticationContainer } from './index.styles';
 
 const Authentication = () => {

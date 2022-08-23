@@ -4,7 +4,7 @@ import {
   addCartItem,
   clearCartItem,
   removeCartItem,
-} from '../../features/cart/cart.slice';
+} from '../../app/cart.slice';
 import './checkout-item.scss';
 
 interface CheckoutItemProps {

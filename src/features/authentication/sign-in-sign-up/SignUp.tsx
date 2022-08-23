@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import FormInput from '../form-input/FormInput';
-import Button from '../button/Button';
+import FormInput from '../../../components/form-input/FormInput';
+import Button from '../../../components/button/Button';
 import './index.scss';
-import { useAppDispatch } from '../../app/store';
-import { createUserWithEmailPassword } from '../header/user.slice';
+import { useAppDispatch } from '../../../app/store';
+import { createUserWithEmailPassword } from '../../header/user.slice';
 
 const initialFormFields = {
   displayName: '',

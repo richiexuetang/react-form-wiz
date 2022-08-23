@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './index.scss';
-import FormInput from '../form-input/FormInput';
-import Button, { BUTTON_TYPE_CLASSES } from '../button/Button';
-import { signInWithGooglePopup } from '../../utils/firebase.utils';
-import { useAppDispatch } from '../../app/store';
-import { signInWithEmailPassword } from '../header/user.slice';
+import FormInput from '../../../components/form-input/FormInput';
+import Button, { BUTTON_TYPE_CLASSES } from '../../../components/button/Button';
+import { signInWithGooglePopup } from '../../../utils/firebase.utils';
+import { useAppDispatch } from '../../../app/store';
+import { signInWithEmailPassword } from '../../header/user.slice';
 import { useNavigate } from 'react-router-dom';
-import { error } from '../../utils/log';
+import { error } from '../../../utils/log';
 
 const initialFormFields = {
   email: '',

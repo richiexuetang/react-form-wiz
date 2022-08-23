@@ -1,6 +1,6 @@
 import React, { Key } from 'react';
 import './directory.scss';
-import MenuItem from '../../components/menu-item/MenuItem';
+import MenuItem from '../menu-item/MenuItem';
 
 export type DirectoryCategory = {
   id: Key;

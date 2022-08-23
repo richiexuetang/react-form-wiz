@@ -4,7 +4,7 @@ import Button from '../../button/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../app/store';
 import { useEffect, useRef } from 'react';
-import { setIsCartOpen } from '../../../features/cart/cart.slice';
+import { setIsCartOpen } from '../../../app/cart.slice';
 import { useNavigate } from 'react-router-dom';
 
 const CartDropdown = () => {

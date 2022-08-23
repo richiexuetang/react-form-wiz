@@ -1,5 +1,3 @@
-import React from 'react';
-
 import CollectionItem from '../../components/collection/CollectionItem';
 
 import './collection.scss';

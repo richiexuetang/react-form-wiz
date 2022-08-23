@@ -1,7 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import cartReducer from '../features/cart/cart.slice';
+import cartReducer from './cart.slice';
 import collectionReducer from '../features/collection/collection.slice';
-import userReducer from '../components/header/user.slice';
+import userReducer from '../features/header/user.slice';
 import logger from 'redux-logger';
 import { useDispatch } from 'react-redux';
 import { persistReducer } from 'redux-persist';
@@ -20,7 +20,8 @@ const persistConfig = {
 
 export const store = configureStore({
   reducer: persistReducer(persistConfig, reducers),
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(logger),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

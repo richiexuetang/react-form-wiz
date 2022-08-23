@@ -1,6 +1,6 @@
 import React from 'react';
 import './menu-item.scss';
-import { DirectoryCategory } from '../../features/directory/Directory';
+import { DirectoryCategory } from '../directory/Directory';
 import { useNavigate } from 'react-router-dom';
 
 interface MenuItemProps {

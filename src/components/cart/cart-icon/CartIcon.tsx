@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { ReactComponent as ShoppingIcon } from '../../../assets/shopping-bag.svg';
 import './cart-icon.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsCartOpen } from '../../../features/cart/cart.slice';
+import { setIsCartOpen } from '../../../app/cart.slice';
 import { RootState } from '../../../app/store';
 
 const CartIcon = () => {
