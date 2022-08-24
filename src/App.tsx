@@ -1,13 +1,13 @@
 import { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
-import Spinner from './components/with-spinner/WithSpinner';
+import Spinner from './components/spinner/Spinner';
 import { loadedLog } from './utils/log';
 
 const Header = lazy(() => import('./features/header/Header'));
 const HomePage = lazy(() => import('./features/homepage/HomePage'));
-const Authentication = lazy(() =>
-  import('./features/authentication/Authentication')
+const Authentication = lazy(
+  () => import('./features/authentication/Authentication')
 );
 const ShopPage = lazy(() => import('./features/shop/ShopPage'));
 const CheckoutPage = lazy(() => import('./features/checkout/Checkout'));

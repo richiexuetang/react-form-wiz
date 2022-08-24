@@ -2,7 +2,7 @@ import { useEffect, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import CollectionItem from './CollectionItem';
-import Spinner from '../../components/with-spinner/WithSpinner';
+import Spinner from '../../components/spinner/Spinner';
 import { CollectionContainer, CollectionTitle } from './index.styles';
 import { RootState } from '../../app/store';
 import { setCategoryItems } from '../../app/collection.slice';

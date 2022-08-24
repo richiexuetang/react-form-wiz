@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import CollectionPreview from './CollectionPreview';
-import WithSpinner from '../../components/with-spinner/WithSpinner';
+import WithSpinner from '../../components/spinner/Spinner';
 
 const CollectionOverview = () => {
   const categories: Category[] = useSelector(
