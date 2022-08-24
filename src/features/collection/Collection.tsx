@@ -1,11 +1,11 @@
-import { useEffect, Fragment } from 'react';
+import { useEffect, Fragment, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import CollectionItem from './CollectionItem';
 import Spinner from '../../components/spinner/Spinner';
 import { CollectionContainer, CollectionTitle } from './index.styles';
 import { RootState } from '../../app/store';
-import { setCategoryItems } from '../../app/collection.slice';
+import { setFetchingCategories } from '../../app/collection.slice';
 
 type CategoryRouteParams = {
   category: string;
@@ -18,21 +18,21 @@ const Collection = () => {
     keyof CategoryRouteParams
   >() as CategoryRouteParams;
 
-  const categories: Category[] = useSelector(
-    (state: RootState) => state.collection.categories
-  );
   const isLoading = useSelector(
     (state: RootState) => state.collection.isFetchingCategory
   );
-  const categoryItems: CategoryItem[] = useSelector(
-    (state: RootState) => state.collection.categoryItem
+  const categoryMap = useSelector(
+    (state: RootState) => state.collection.categoryMap
   );
 
+  const [products, setProducts] = useState<CategoryItem[]>([]);
+
   useEffect(() => {
-    if (categories && category) {
-      dispatch(setCategoryItems({ categories, category }));
+    if (category && categoryMap) {
+      setProducts(categoryMap[category]);
+      dispatch(setFetchingCategories(false));
     }
-  }, [dispatch, categories, category]);
+  }, [dispatch, category, categoryMap]);
 
   return (
     <Fragment>
@@ -41,8 +41,8 @@ const Collection = () => {
         <Spinner />
       ) : (
         <CollectionContainer>
-          {categoryItems &&
-            categoryItems.map((product) => (
+          {products &&
+            products.map((product) => (
               <CollectionItem key={product.id} product={product} />
             ))}
         </CollectionContainer>

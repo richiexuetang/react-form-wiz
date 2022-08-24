@@ -4,22 +4,28 @@ import { getCategoriesAndDocuments } from '../utils/firebase.utils';
 export const fetchCategoriesInitial = createAsyncThunk(
   'category/fetchCategoriesInitial',
   async () => {
-    const res: Category[] = await getCategoriesAndDocuments();
-    return res;
+    const categories: Category[] = await getCategoriesAndDocuments();
+    const categoryMap = categories.reduce((acc, category) => {
+      const { title, items } = category;
+      acc[title.toLowerCase()] = items;
+      return acc;
+    }, {} as CategoryMap);
+
+    return { categories, categoryMap };
   }
 );
 export interface CategoriesState {
   categories: Category[];
   isFetchingCategory: boolean;
   error: Error | null;
-  categoryItem: CategoryItem[];
+  categoryMap: CategoryMap | null;
 }
 
 export const initialState: CategoriesState = {
   categories: [],
-  isFetchingCategory: false,
+  isFetchingCategory: true,
   error: null,
-  categoryItem: [],
+  categoryMap: null,
 };
 
 export const collectionSlice = createSlice({
@@ -41,20 +47,6 @@ export const collectionSlice = createSlice({
     fetchCategoriesError(state, { payload: error }: PayloadAction<Error>) {
       state.error = error;
     },
-    setCategoryItems(
-      state,
-      { payload }: PayloadAction<{ categories: Category[]; category: string }>
-    ) {
-      const { categories, category } = payload;
-
-      const categoryMap = categories.reduce((acc, c) => {
-        const { title, items } = c;
-        acc[title.toLowerCase()] = items;
-        return acc;
-      }, {} as CategoryMap);
-
-      state.categoryItem = categoryMap[category];
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -62,8 +54,13 @@ export const collectionSlice = createSlice({
         state.isFetchingCategory = true;
       })
       .addCase(fetchCategoriesInitial.fulfilled, (state, action) => {
-        state.categories = action.payload;
-        state.isFetchingCategory = false;
+        if (action.payload) {
+          state.categories = action.payload?.categories;
+          state.categoryMap = action.payload?.categoryMap;
+          state.isFetchingCategory = false;
+        } else {
+          state.isFetchingCategory = true;
+        }
       });
   },
 });
@@ -72,7 +69,6 @@ export const {
   setFetchingCategories,
   fetchCategoriesSuccess,
   fetchCategoriesError,
-  setCategoryItems,
 } = collectionSlice.actions;
 
 export default collectionSlice.reducer;

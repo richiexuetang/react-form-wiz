@@ -1,35 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import CollectionPreview from './CollectionPreview';
-import WithSpinner from '../../components/spinner/Spinner';
+import Spinner from '../../components/spinner/Spinner';
+import { fetchCategoriesInitial } from '../../app/collection.slice';
+import { useAppDispatch } from '../../app/store';
 
 const CollectionOverview = () => {
-  const categories: Category[] = useSelector(
-    (state: RootState) => state.collection.categories
+  const dispatch = useAppDispatch();
+  const categoryMap: CategoryMap = useSelector(
+    (state: RootState) => state.collection.categoryMap
   );
-
-  const [categoryMap, setCategoryMap] = useState<CategoryMap | any>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
+  const isLoading: boolean = useSelector(
+    (state: RootState) => state.collection.isFetchingCategory
+  );
   useEffect(() => {
-    const getCategoriesMap = (currCategories: Category[]): CategoryMap =>
-      currCategories.reduce((acc, category) => {
-        const { title, items } = category;
-        acc[title.toLowerCase()] = items;
-        return acc;
-      }, {} as CategoryMap);
-
-    if (isLoading && categories) {
-      setCategoryMap(getCategoriesMap(categories));
-      setIsLoading(false);
+    if (!categoryMap) {
+      dispatch(fetchCategoriesInitial());
     }
-  }, [isLoading, categories]);
+  }, [dispatch, categoryMap]);
 
   return (
     <React.Fragment>
       {isLoading ? (
-        <WithSpinner />
+        <Spinner />
       ) : (
         Object.keys(categoryMap).map((title) => {
           const products = categoryMap[title];
