@@ -1,5 +1,5 @@
 import './cart-dropdown.scss';
-import CartItem from '../cart-item/CartItem';
+import CartItem from '../item-card/CartItemCard';
 import Button from '../../button/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../app/store';
@@ -41,7 +41,7 @@ const CartDropdown = () => {
       <div className='cart-items'>
         {cartItems.length ? (
           cartItems.map((cartItem) => (
-            <CartItem key={cartItem.id} item={cartItem} />
+            <CartItem key={cartItem.id} cartItem={cartItem} />
           ))
         ) : (
           <span className='empty-message'>Your cart is empty</span>

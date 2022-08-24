@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../app/store';
+import { RootState } from '../../../app/store';
 import {
   addCartItem,
   clearCartItem,
   removeCartItem,
-} from '../../app/cart.slice';
+} from '../../../app/cart.slice';
 import './checkout-item.scss';
 
 interface CheckoutItemProps {

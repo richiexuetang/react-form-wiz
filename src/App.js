@@ -9,7 +9,7 @@ const HomePage = lazy(() => import('./features/homepage/HomePage'));
 const Authentication = lazy(() =>
   import('./features/authentication/Authentication')
 );
-const ShopPage = lazy(() => import('./features/shop/Shop'));
+const ShopPage = lazy(() => import('./features/shop/ShopPage'));
 const CheckoutPage = lazy(() => import('./features/checkout/Checkout'));
 
 const App = () => {

@@ -4,10 +4,10 @@ import { RootState } from '../../app/store';
 import './header.scss';
 import { Outlet, Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-import CartIcon from '../../components/cart/cart-icon/CartIcon';
+import CartIcon from '../../components/cart/icon/CartIcon';
 import { useAppDispatch } from '../../app/store';
-import { signOutUserSession } from './user.slice';
-import CartDropdown from '../../components/cart/cart-dropdown/CartDropdown';
+import { signOutUserSession } from '../../app/user.slice';
+import CartDropdown from '../../components/cart/dropdown/CartDropdown';
 
 const Header = () => {
   const authenticated = useSelector(

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getCategoriesAndDocuments } from '../../utils/firebase.utils';
+import { getCategoriesAndDocuments } from '../utils/firebase.utils';
 
 export const fetchCategoriesInitial = createAsyncThunk(
   'category/fetchCategoriesInitial',

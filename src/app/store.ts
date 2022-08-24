@@ -1,7 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import cartReducer from './cart.slice';
-import collectionReducer from '../features/collection/collection.slice';
-import userReducer from '../features/header/user.slice';
+import collectionReducer from './collection.slice';
+import userReducer from './user.slice';
 import logger from 'redux-logger';
 import { useDispatch } from 'react-redux';
 import { persistReducer } from 'redux-persist';

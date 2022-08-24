@@ -14,6 +14,16 @@ export const initialState: CartState = {
   totalPrice: 0,
 };
 
+const getCartInformation = (cartItems: CartItem[]) => {
+  let totalPrice = 0;
+  let totalItems = 0;
+  for (const cartItem of cartItems) {
+    totalPrice += cartItem.quantity * cartItem.price;
+    totalItems += cartItem.quantity;
+  }
+  return [totalPrice, totalItems];
+};
+
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -38,7 +48,7 @@ export const cartSlice = createSlice({
       } else {
         state.cartItems = [...cartItems, { ...productToAdd, quantity: 1 }];
       }
-      state.numItems += 1;
+      [state.totalPrice, state.numItems] = getCartInformation(state.cartItems);
     },
     removeCartItem(
       state,
@@ -64,8 +74,8 @@ export const cartSlice = createSlice({
             ? { ...cartItem, quantity: cartItem.quantity - 1 }
             : cartItem
         );
-        state.numItems -= 1;
       }
+      [state.totalPrice, state.numItems] = getCartInformation(state.cartItems);
     },
     clearCartItem(
       state,
@@ -78,23 +88,17 @@ export const cartSlice = createSlice({
     ) {
       const { cartItems, cartItemToClear } = payload;
 
-      state.numItems -= cartItemToClear.quantity;
-
       state.cartItems = cartItems.filter(
         (cartItem) => cartItem.id !== cartItemToClear.id
       );
+      state.numItems = state.cartItems.length;
+      [state.totalPrice, state.numItems] = getCartInformation(state.cartItems);
     },
     setCartItems(state, { payload: cartItems }: PayloadAction<CartItem[]>) {
       state.cartItems = cartItems;
     },
     setIsCartOpen(state, { payload }: PayloadAction<boolean>) {
       state.isCartOpen = payload;
-    },
-    incrementItemsInCart(state, { payload }: PayloadAction<number>) {
-      state.numItems += payload;
-    },
-    addPriceToTotal(state, { payload }: PayloadAction<number>) {
-      state.totalPrice += payload;
     },
   },
 });

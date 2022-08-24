@@ -4,7 +4,7 @@ import {
   createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
   signOutUser,
-} from '../../utils/firebase.utils';
+} from '../utils/firebase.utils';
 
 interface UserState {
   currentUser: UserData | null;

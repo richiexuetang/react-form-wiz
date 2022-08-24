@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { addCartItem } from '../../app/cart.slice';
-import Button, { BUTTON_TYPE_CLASSES } from '../button/Button';
+import Button, { BUTTON_TYPE_CLASSES } from '../../components/button/Button';
 import { CollectionItemContainer, Footer, Name, Price } from './index.styles';
 
 interface CollectionItemProps {

@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './shop.styles.scss';
 import { useAppDispatch } from '../../app/store';
-import { fetchCategoriesInitial } from '../collection/collection.slice';
-import CollectionOverview from '../../components/collection/CollectionOverview';
-import Collection from '../../components/collection/Collection';
+import { fetchCategoriesInitial } from '../../app/collection.slice';
+import CollectionOverview from '../collection/CollectionOverview';
+import Collection from '../collection/Collection';
 
 const ShopPage = () => {
   const appDispatch = useAppDispatch();

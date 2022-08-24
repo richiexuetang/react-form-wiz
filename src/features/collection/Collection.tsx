@@ -5,7 +5,7 @@ import CollectionItem from './CollectionItem';
 import Spinner from '../../components/with-spinner/WithSpinner';
 import { CollectionContainer, CollectionTitle } from './index.styles';
 import { RootState } from '../../app/store';
-import { setCategoryItems } from '../../features/collection/collection.slice';
+import { setCategoryItems } from '../../app/collection.slice';
 
 type CategoryRouteParams = {
   category: string;

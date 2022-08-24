@@ -4,7 +4,7 @@ import FormInput from '../../../components/form-input/FormInput';
 import Button, { BUTTON_TYPE_CLASSES } from '../../../components/button/Button';
 import { signInWithGooglePopup } from '../../../utils/firebase.utils';
 import { useAppDispatch } from '../../../app/store';
-import { signInWithEmailPassword } from '../../header/user.slice';
+import { signInWithEmailPassword } from '../../../app/user.slice';
 import { useNavigate } from 'react-router-dom';
 import { error } from '../../../utils/log';
 

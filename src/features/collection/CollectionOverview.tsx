@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import './index.scss';
 import { RootState } from '../../app/store';
 import CollectionPreview from './CollectionPreview';
-import WithSpinner from '../with-spinner/WithSpinner';
+import WithSpinner from '../../components/with-spinner/WithSpinner';
 
 const CollectionOverview = () => {
   const categories: Category[] = useSelector(

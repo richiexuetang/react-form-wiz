@@ -3,7 +3,7 @@ import FormInput from '../../../components/form-input/FormInput';
 import Button from '../../../components/button/Button';
 import './index.scss';
 import { useAppDispatch } from '../../../app/store';
-import { createUserWithEmailPassword } from '../../header/user.slice';
+import { createUserWithEmailPassword } from '../../../app/user.slice';
 
 const initialFormFields = {
   displayName: '',
