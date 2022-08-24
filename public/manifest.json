@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "MerchandiseY",
+  "name": "MerchandiseY e-commerce similar to StockX",
   "icons": [
     {
       "src": "favicon.ico",
