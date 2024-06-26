@@ -1,0 +1,8 @@
+
+packages:
+  - 'benchmark'
+  - 'packages/*'
+  - 'packages-internal/*'
+  - 'docs'
+  - 'test'
+  - 'apps/*'
